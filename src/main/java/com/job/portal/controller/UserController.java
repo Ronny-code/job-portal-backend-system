@@ -3,15 +3,13 @@ package com.job.portal.controller;
 import com.job.portal.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import com.job.portal.model.User;
-import com.job.portal.GlobalExceptionHandler;
-import com.job.portal.service.userService;
+import com.job.portal.service.UserService;
+
 
 import java.util.List;
 @Data
@@ -21,6 +19,7 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
+    private UserService userService;
 
     @PostMapping("/users")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
@@ -31,6 +30,7 @@ public class UserController {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
 
 
 
