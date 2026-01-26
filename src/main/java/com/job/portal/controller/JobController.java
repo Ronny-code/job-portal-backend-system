@@ -2,9 +2,12 @@ package com.job.portal.controller;
 
 import com.job.portal.repository.JobRepository;
 import java.util.List;
+
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.job.portal.model.Job;
+@Data
 @RestController
 @RequestMapping("/api/jobs")
 public class JobController {
