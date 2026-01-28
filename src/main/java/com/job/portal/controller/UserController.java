@@ -1,39 +1,22 @@
 package com.job.portal.controller;
 
-import com.job.portal.repository.UserRepository;
-import jakarta.validation.Valid;
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
-import com.job.portal.model.User;
 import com.job.portal.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.job.portal.model.User;
 
-
-import java.util.List;
-@Data
-@Service
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api")
 public class UserController {
+
     @Autowired
-    private UserRepository userRepository;
     private UserService userService;
 
-    @PostMapping("/users")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
-        User savedUser = userService.createUser(user);
-        return ResponseEntity.ok(savedUser);
+    @GetMapping("/users/{id}")
+    public User getUser(@PathVariable Long id) {
+        return userService.getUser(id);
     }
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-
-
-
-
-
 }

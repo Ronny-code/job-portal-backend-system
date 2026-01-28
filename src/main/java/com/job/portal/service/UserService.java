@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.job.portal.repository.UserRepository;
 import com.job.portal.model.User;
-
+import com.job.portal.exception.ResourceNotFoundException;
 @Service
 public class UserService {
 
@@ -16,7 +16,9 @@ public class UserService {
     }
 
     public User getUser(Long id) {
-        return userRepository.findById(id).orElseThrow();
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
     }
+
 }
 
