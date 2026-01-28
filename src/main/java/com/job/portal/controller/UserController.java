@@ -1,5 +1,6 @@
 package com.job.portal.controller;
 
+import com.job.portal.dto.UserDto;
 import com.job.portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/users/{id}")
-    public User getUser(@PathVariable Long id) {
+    public UserDto getUser(@PathVariable Long id) {
         return userService.getUser(id);
     }
+
 }
