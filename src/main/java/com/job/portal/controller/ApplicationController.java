@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Data
 @RestController
 @RequestMapping("/api/applications")
@@ -23,11 +25,19 @@ public class ApplicationController {
     @Autowired
     private ApplicationService applicationService;
 
+    @Autowired
+    private ApplicationRepository applicationRepository;
+
 
 
     @PostMapping
     public ResponseEntity<Application> apply(@RequestBody ApplicationDto dto) {
         return ResponseEntity.ok(applicationService.apply(dto));
+    }
+
+    @GetMapping("/user/{id}")
+    public List<Application> getByUser(@PathVariable Long id) {
+        return applicationRepository.findByUserId(id);
     }
 
 

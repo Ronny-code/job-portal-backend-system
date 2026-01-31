@@ -2,6 +2,7 @@ package com.job.portal.service;
 
 import com.job.portal.dto.ApplicationDto;
 import com.job.portal.exception.ResourceNotFoundException;
+import com.job.portal.mapper.ApplicationMapper;
 import com.job.portal.model.Application;
 import com.job.portal.model.Job;
 import com.job.portal.model.User;
@@ -24,6 +25,9 @@ public class ApplicationService {
     @Autowired
     private ApplicationRepository applicationRepository;
 
+    @Autowired
+    private ApplicationMapper mapper;
+
     public Application apply(ApplicationDto dto) {
         User user = userRepository.findById(dto.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
@@ -31,11 +35,7 @@ public class ApplicationService {
         Job job = jobRepository.findById(dto.getJobId())
                 .orElseThrow(() -> new ResourceNotFoundException("Job not found"));
 
-        Application app = new Application();
-        app.setUser(user);
-        app.setJob(job);
-        app.setStatus("APPLIED");
-
+        Application app = mapper.toEntity(dto, user, job);
         return applicationRepository.save(app);
     }
 
