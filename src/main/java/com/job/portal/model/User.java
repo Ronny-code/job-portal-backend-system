@@ -1,9 +1,6 @@
 package com.job.portal.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,8 +12,9 @@ import jakarta.validation.constraints.Email;
 
 @Entity
 @Data
-
+@Table(name="user")
 @Service
+
 
 public class User {
     @Getter
@@ -26,14 +24,24 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public long getId() {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public void setPassword(@NotBlank String password) {
+        this.password = password;
+    }
 
     public @NotBlank String getName() {
         return name;
@@ -51,6 +59,7 @@ public class User {
         return email;
     }
 
+
     @NotBlank
     private String name;
 
@@ -61,6 +70,14 @@ public class User {
 
     @NotBlank
     private String password;
+
+    public @NotBlank String getPassword() {
+        return password;
+    }
+
+    @Column(nullable = false)
+    private String role; // USER, ADMIN
+
 
 
 
